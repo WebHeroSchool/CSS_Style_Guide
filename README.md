@@ -546,9 +546,9 @@ a { font: caption; }
 
  ❌ не надо так 👇
 ```css
-@Charset 'UTF-8';
-@cHarSeT 'UTF-8';
-@CHARSET 'UTF-8';
+@Charset "UTF-8";
+@cHarSeT "UTF-8";
+@CHARSET "UTF-8";
 @Media (min-width: 50em) {}
 @mEdIa (min-width: 50em) {}
 @MEDIA (min-width: 50em) {}
@@ -558,7 +558,7 @@ a { font: caption; }
 
 ✅ надо так 👇
 ```css
-@charset 'UTF-8';
+@charset "UTF-8";
 @media (min-width: 50em) {}
 ```
 &nbsp;
