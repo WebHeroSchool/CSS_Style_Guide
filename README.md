@@ -20,6 +20,8 @@
 13. [Дублирование](#дублирование)
 14. [Использование только известных названий/имен/свойств и тд](#использование-только-известных-названийименсвойств-и-тд)
 15. [Комментарии](#комментарии)
+16. [!important в @keyframes](#important-в-keyframes)
+
 
 &nbsp;
 
@@ -27,6 +29,8 @@
 
 &nbsp;
 #### 1. Всегда делай отступ в два пробела. (если ты пользуешься табом, то его можно также настроить на отступ в два пробела).
+
+> stylelint: [`indentation`](https://stylelint.io/user-guide/rules/indentation#indentation)
 
 &nbsp;
 
@@ -129,6 +133,8 @@ a {
 &nbsp;
 #### 1. Всегда ставь точку с запятой у последнего свойства в блоке.
 
+> stylelint: [`declaration-block-trailing-semicolon`](https://stylelint.io/user-guide/rules/declaration-block-trailing-semicolon#declaration-block-trailing-semicolon)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -148,6 +154,8 @@ a { @include foo; }
 ```
 &nbsp;
 #### 2. Не ставь лишние точки с запятой.
+
+> stylelint: [`no-extra-semicolons`](https://stylelint.io/user-guide/rules/no-extra-semicolons#no-extra-semicolons)
 
 &nbsp;
 
@@ -197,6 +205,11 @@ a {
 
 &nbsp;
 #### 1. Если свойств несколько, лучше писать их в столбик.
+
+> stylelint: [`declaration-block-single-line-max-declarations`](https://stylelint.io/user-guide/rules/declaration-block-single-line-max-declarations#declaration-block-single-line-max-declarations)
+
+&nbsp;
+
 Такая запись более удобна для восприятия.
 
 &nbsp;
@@ -223,6 +236,8 @@ a {
 &nbsp;
 #### 2. В многострочных блоках пиши каждое свойство с новой строки(в столбик).
 
+> stylelint: [`declaration-block-semicolon-newline-after`](https://stylelint.io/user-guide/rules/declaration-block-semicolon-newline-after)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -243,6 +258,8 @@ a {
 ```
 &nbsp;
 #### 3. Перечисляй селекторы в столбик (после запятой начинай с новой строки).
+
+> stylelint: [`selector-list-comma-newline-after`](https://stylelint.io/user-guide/rules/selector-list-comma-newline-after#selector-list-comma-newline-after)
 
 &nbsp;
 
@@ -275,6 +292,8 @@ b { color: pink; }
 &nbsp;
 #### Используй двойное двоеточие для псевдоэлементов.
 
+> stylelint: [`selector-pseudo-element-colon-notation`](https://stylelint.io/user-guide/rules/selector-pseudo-element-colon-notation#selector-pseudo-element-colon-notation)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -304,23 +323,34 @@ li::marker { font-variant-numeric: tabular-nums; }
 ## Пустые блоки.
 
 &nbsp;
-#### Не оставляй блоки со стилями пустыми с комментарием внутри, которые рассматриваются как содержимое.
+#### Не оставляй пустые блоки со стилями.
+
+> stylelint: [`block-no-empty`](https://stylelint.io/user-guide/rules/block-no-empty#block-no-empty)
 
 &nbsp;
 
 ❌ не надо так 👇
 ```css
+a {}
+
+a { }
+
+@media print {
+  a {}
+}
+```
+
+&nbsp;
+
+✅ надо так 👇
+```css
 a {
   /* foo */
 }
-
 @media print {
   a {
-    /* foo */
+    color: pink;
   }
-}
-
-a {
 }
 ```
 
@@ -332,6 +362,8 @@ a {
 
 &nbsp;
 #### 1. Не ставь ведущий ноль у дробных чисел.
+
+> stylelint: [`number-leading-zero`](https://stylelint.io/user-guide/rules/number-leading-zero#number-leading-zero)
 
 &nbsp;
 
@@ -351,6 +383,10 @@ a { transform: translate(2px, .4px); }
 ```
 &nbsp;
 #### 2. Не ставь единицы измерения длины, если значение нулевое.
+
+> stylelint: [`length-zero-no-unit`](https://stylelint.io/user-guide/rules/length-zero-no-unit#length-zero-no-unit)
+
+&nbsp;
 
 Длина - это измерение , которое представляет собой число, за которым сразу следует идентификатор единицы измерения . Однако для нулевой длины идентификатор единицы является необязательным. Единицы длины: em, ex, ch, vw, vh, cm, mm, in, pt, pc, px, rem, vmin, и vmax.
 
@@ -373,6 +409,8 @@ a { top: 1.001vh }
 ```
 &nbsp;
 #### 3. Не ставь нули в конце чисел, если они не несут смысла.
+
+> stylelint: [`number-no-trailing-zeros`](https://stylelint.io/user-guide/rules/number-no-trailing-zeros#number-no-trailing-zeros)
 
 &nbsp;
 
@@ -398,6 +436,10 @@ a { top: 1.01px }
 
 &nbsp;
 #### 1. Не пиши селекторы с меньшей специфичностью после селекторов с большей специфичностью.
+
+> stylelint: [`no-descending-specificity`](https://stylelint.io/user-guide/rules/no-descending-specificity#no-descending-specificity)
+
+&nbsp;
 
 Когда два селектора имеют одинаковую специфичность, приоритет имеет тот , который появляется последним . Однако ситуация отличается, когда один из селекторов имеет более высокую специфичность. В этом случае исходный порядок не имеет значения: селектор с более высокой специфичностью победит, даже если он появится первым.
 
@@ -462,6 +504,10 @@ a {}
 &nbsp;
 #### 2. Не пиши сокращенные свойства  после связных свойств.
 
+> stylelint: [`declaration-block-no-shorthand-property-overrides`](https://stylelint.io/user-guide/rules/declaration-block-no-shorthand-property-overrides#declaration-block-no-shorthand-property-overrides)
+
+&nbsp;
+
 Сокращенные свойства могут переопределить связные свойства.
 
 &nbsp;
@@ -511,6 +557,10 @@ a { transition-property: opacity; -webkit-transition: opacity 1s linear; }
 &nbsp;
 #### Ставь всегда тип шрифта(serif, sans-serif, cursive, fantasy или monospace).
 
+> stylelint: [`font-family-no-missing-generic-family-keyword`](https://stylelint.io/user-guide/rules/font-family-no-missing-generic-family-keyword#font-family-no-missing-generic-family-keyword)
+
+&nbsp;
+
 Тип шрифта:
 - может стоять в любом месте в списке шрифтов;
 - может быть опущен, если используется ключевое слово, связанное с наследованием свойств или системным шрифтом.
@@ -540,7 +590,9 @@ a { font: caption; }
 ## Строчные или заглавные буквы.
 
 &nbsp;
-#### 1. Называй правила строчными буквами.
+#### 1. Называй at-rules (правила) строчными буквами.
+
+> stylelint: [`at-rule-name-case`](https://stylelint.io/user-guide/rules/at-rule-name-case#at-rule-name-case)
 
 &nbsp;
 
@@ -563,6 +615,8 @@ a { font: caption; }
 ```
 &nbsp;
 #### 2. Называй функции строчными буквами.
+
+> stylelint: [`function-name-case`](https://stylelint.io/user-guide/rules/function-name-case#function-name-case)
 
 &nbsp;
 
@@ -596,6 +650,8 @@ a {
 &nbsp;
 #### 3. Для цветов в шестнадцетиричном формате используй строчные буквы.
 
+> stylelint: [`color-hex-case`](https://stylelint.io/user-guide/rules/color-hex-case#color-hex-case)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -611,7 +667,9 @@ a { color: #000; }
 a { color: #fff; }
 ```
 &nbsp;
-#### 4. Для названий медиа запрсов используй строчные буквы.
+#### 4. Для названий медиа-запрсов используй строчные буквы.
+
+> stylelint: [`media-feature-name-case`](https://stylelint.io/user-guide/rules/media-feature-name-case#media-feature-name-case)
 
 &nbsp;
 
@@ -634,6 +692,8 @@ a { color: #fff; }
 ```
 &nbsp;
 #### 5. Пиши свойства строчными буквами.
+
+> stylelint: [`property-case`](https://stylelint.io/user-guide/rules/property-case#property-case)
 
 &nbsp;
 
@@ -679,6 +739,8 @@ a {
 &nbsp;
 #### 6. Используй строчные буквы для селекоторов псевдоклассов.
 
+> stylelint: [`selector-pseudo-class-case`](https://stylelint.io/user-guide/rules/selector-pseudo-class-case#selector-pseudo-class-case)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -700,6 +762,8 @@ a:hover {}
 ```
 &nbsp;
 #### 7. Используй строчные буквы для селекоторов псевдоэлементов.
+
+> stylelint: [`selector-pseudo-element-case`](https://stylelint.io/user-guide/rules/selector-pseudo-element-case#selector-pseudo-element-case)
 
 &nbsp;
 
@@ -725,6 +789,8 @@ input::-moz-placeholder {}
 &nbsp;
 #### 8. Используй строчные буквы для типов селекторов.
 
+> stylelint: [`selector-type-case`](https://stylelint.io/user-guide/rules/selector-type-case#selector-type-case)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -742,6 +808,8 @@ li {}
 ```
 &nbsp;
 #### 9. Используй строчные буквы для единиц измерени.
+
+> stylelint: [`unit-case`](https://stylelint.io/user-guide/rules/unit-case#unit-case)
 
 &nbsp;
 
@@ -785,6 +853,8 @@ a {
 &nbsp;
 #### Используй короткие обозначения шестнадцатеричных цветов.
 
+> stylelint: [`color-hex-length`](https://stylelint.io/user-guide/rules/color-hex-length#color-hex-length)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -811,6 +881,8 @@ a { color: #a4a4a4; }
 &nbsp;
 #### 1. Пустая строка перед at-rules (правилами):
 
+> stylelint: [`at-rule-empty-line-before`](https://stylelint.io/user-guide/rules/at-rule-empty-line-before#at-rule-empty-line-before)
+
 &nbsp;
 - всегда оставляй пустую строку.
 
@@ -828,6 +900,7 @@ a {}
 ✅ надо так 👇
 ```css
 a {}
+
 @media {}
 ```
 &nbsp;
@@ -909,6 +982,8 @@ b {
 &nbsp;
 #### 2. Пустая строка перед комментарием:
 
+> stylelint: [`comment-empty-line-before`](https://stylelint.io/user-guide/rules/comment-empty-line-before#comment-empty-line-before)
+
 &nbsp;
 - всегда оставлять пустую строку.
 
@@ -967,7 +1042,7 @@ a {
 ```css
 a {
   background: pink;
-  /* not a stylelint command */
+  /* не команда stylelint */
   color: #eee;
 }
 ```
@@ -984,6 +1059,8 @@ a {
 ```
 &nbsp;
 #### 3. Пустая строка перед пользовательскими свойствами (CSS переменные):
+
+> stylelint: [`custom-property-empty-line-before`](https://stylelint.io/user-guide/rules/custom-property-empty-line-before#custom-property-empty-line-before)
 
 &nbsp;
 - всегда оставляй пустую строку перед пользовательским свойствами.
@@ -1101,6 +1178,10 @@ a { -foo: pink; -bar: red; }
 ```
 &nbsp;
 #### 4. Пустая строка перед простыми свойствами:
+
+> stylelint: [`declaration-empty-line-before`](https://stylelint.io/user-guide/rules/declaration-empty-line-before#declaration-empty-line-before)
+
+&nbsp;
 
 - оставляй пустую строку.
 
@@ -1226,6 +1307,10 @@ a { bottom: 15px; top: 5px; }
 &nbsp;
 #### 5. Пустая строка перед блоками свойств:
 
+> stylelint: [`rule-empty-line-before`](https://stylelint.io/user-guide/rules/rule-empty-line-before#rule-empty-line-before)
+
+&nbsp;
+
 - оставляй пустую строку перед многострочными блоками.
 
 &nbsp;
@@ -1293,6 +1378,8 @@ a {}
 &nbsp;
 #### 6. Не оставляй пустую строку перед закрывающей фигурной скобкой.
 
+> stylelint: [`block-closing-brace-empty-line-before`](https://stylelint.io/user-guide/rules/block-closing-brace-empty-line-before#block-closing-brace-empty-line-before)
+
 &nbsp;
 
  ❌ не надо так 👇
@@ -1315,6 +1402,10 @@ a { color: pink; }
 ```
 &nbsp;
 #### 7. Не ставь лишние  смежные пустые строки в функциях, селекторах, списках значений.
+
+> stylelint: [`function-max-empty-lines`](https://stylelint.io/user-guide/rules/function-max-empty-lines#function-max-empty-lines),
+>[`selector-max-empty-lines`](https://stylelint.io/user-guide/rules/selector-max-empty-lines#selector-max-empty-lines),
+>[`value-list-max-empty-lines`](https://stylelint.io/user-guide/rules/value-list-max-empty-lines#value-list-max-empty-lines)
 
 &nbsp;
 
@@ -1369,6 +1460,8 @@ a {
 &nbsp;
 #### 8. Ограничь число смежных пустых строк в таблице стилей.
 
+> stylelint: [`max-empty-lines`](https://stylelint.io/user-guide/rules/max-empty-lines#max-empty-lines)
+
 &nbsp;
 
  ❌ не надо так 👇
@@ -1400,19 +1493,15 @@ a {}
 b {}
 ```
 &nbsp;
-#### 9. После открывающей фигурной скобки блока начинай писать свойства с новой строки.
+#### 9. После открывающей фигурной скобки в многострочных блоках начинай писать свойства с новой строки.
+
+> stylelint: [`block-opening-brace-newline-after`](https://stylelint.io/user-guide/rules/block-opening-brace-newline-after#block-opening-brace-newline-after)
 
 &nbsp;
 
  ❌ не надо так 👇
 ```css
-a{ color: pink; }
-a{ color: pink;
-}
-// также относится к комментариям
-a{ /* end-of-line comment
-  	with a newline */
-  	color: pink;
+a{color: pink;
 }
 ```
 
@@ -1420,17 +1509,15 @@ a{ /* end-of-line comment
 
 ✅ надо так 👇
 ```css
+a { color: pink; }
+
 a {
 color: pink; }
-a
-{
-color: pink; }
-a { /* end-of-line comment */
-  	color: pink;
-}
 ```
 &nbsp;
-####10. После точки с запятой в at-rules (правила) начинай писать с новой строки.
+#### 10. После точки с запятой в at-rules (правила) начинай писать с новой строки.
+
+> stylelint: [`at-rule-semicolon-newline-after`](https://stylelint.io/user-guide/rules/at-rule-semicolon-newline-after#at-rule-semicolon-newline-after)
 
 &nbsp;
 
@@ -1457,6 +1544,8 @@ a {}
 &nbsp;
 #### 11. После закрывающей фигурной скобки в блоке начинай следующую запись с новой строки.
 
+> stylelint: [`block-closing-brace-newline-after`](https://stylelint.io/user-guide/rules/block-closing-brace-newline-after#block-closing-brace-newline-after)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -1475,6 +1564,8 @@ b { color: red; }
 ```
 &nbsp;
 #### 12. В многострочных функциях в скобках ставь символ новой строки после открывающей и перед закрывающей скобкой.
+
+> stylelint: [`function-parentheses-newline-inside`](https://stylelint.io/user-guide/rules/function-parentheses-newline-inside#function-parentheses-newline-inside)
 
 &nbsp;
 
@@ -1508,6 +1599,8 @@ a {
 &nbsp;
 #### 13. В многострочных функциях после запятой начинай писать с новой строки.
 
+> stylelint: [`function-comma-newline-after`](https://stylelint.io/user-guide/rules/function-comma-newline-after#function-comma-newline-after)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -1530,6 +1623,8 @@ a {
 ```
 &nbsp;
 #### 14. В многострочных списках медиа-запросов всегда должен быть символ новой строки после запятых.
+
+> stylelint: [`media-query-list-comma-newline-after`](https://stylelint.io/user-guide/rules/media-query-list-comma-newline-after#media-query-list-comma-newline-after)
 
 &nbsp;
 
@@ -1555,6 +1650,8 @@ projection and (color) {}
 &nbsp;
 #### 15. В многострочных списках значений свойства начинай писать с новой строки после запятой.
 
+> stylelint: [`value-list-comma-newline-after`](https://stylelint.io/user-guide/rules/value-list-comma-newline-after#value-list-comma-newline-after)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -1575,6 +1672,8 @@ a { background-size: 0,
 &nbsp;
 #### 16. В многострочных блоках свойств закрывающая фигурная скобка должна быть на новой строке.
 
+> stylelint: [`block-closing-brace-newline-before`](https://stylelint.io/user-guide/rules/block-closing-brace-newline-before)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -1593,6 +1692,8 @@ a { color: pink;
 ```
 &nbsp;
 #### 16. Если свойство многострочное, после двоеточия начинай писать с новой строки.
+
+> stylelint: [`declaration-colon-newline-after`](https://stylelint.io/user-guide/rules/declaration-colon-newline-after#declaration-colon-newline-after)
 
 &nbsp;
 
@@ -1620,6 +1721,8 @@ a {
 ```
 &nbsp;
 #### 17. Не переноси непрерывные строки без использования экранирующего символа ‘\ ’.
+
+> stylelint: [`string-no-newline`](https://stylelint.io/user-guide/rules/string-no-newline)
 
 &nbsp;
 
@@ -1659,6 +1762,50 @@ a {
   font-family: "Times New Roman";
 }
 ```
+&nbsp;
+#### 18. Не оставляй пустые строки с пробелами, отступами, переносом строки.
+
+> stylelint: [`no-empty-source`](https://stylelint.io/user-guide/rules/no-empty-source#no-empty-source)
+
+&nbsp;
+
+Строка, содержащая только пробелы является пустой.
+
+&nbsp;
+
+❌ не надо так 👇
+```css
+
+\t\t
+\n
+```
+
+&nbsp;
+
+✅ надо так 👇
+```css
+a {}
+/* Only comments */
+```
+&nbsp;
+#### 19. Оставляй пустую строку в конце блока.
+
+> stylelint: [`no-missing-end-of-source-newline`](https://stylelint.io/user-guide/rules/no-missing-end-of-source-newline)
+
+&nbsp;
+
+❌ не надо так 👇
+```css
+a { color: pink; }
+```
+
+&nbsp;
+
+✅ надо так 👇
+```css
+a { color: pink; }
+\n
+```
 
 **[⬆ Вернуться к содержанию](#содержание)**
 
@@ -1668,6 +1815,8 @@ a {
 
 &nbsp;
 #### 1. Не ставь пробелы в конце строки.
+
+> stylelint: [`no-eol-whitespace`](https://stylelint.io/user-guide/rules/no-eol-whitespace#no-eol-whitespace)
 
 &nbsp;
 
@@ -1694,6 +1843,8 @@ a { color: pink; }
 &nbsp;
 #### 2. Ставь один пробел между комбинаторами.
 
+> stylelint: [`selector-descendant-combinator-no-non-space`](https://stylelint.io/user-guide/rules/selector-descendant-combinator-no-non-space#selector-descendant-combinator-no-non-space)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -1711,6 +1862,10 @@ a { color: pink; }
 ```
 &nbsp;
 #### 3. В calc функциях ставь пробел перед и после оператора.
+
+> stylelint: [`function-calc-no-unspaced-operator`](https://stylelint.io/user-guide/rules/function-calc-no-unspaced-operator)
+
+&nbsp;
 
 Перед оператором должен быть один пробел.
 
@@ -1742,6 +1897,8 @@ a {
 &nbsp;
 #### 4. Не ставь пробел перед точкой с запятой в блоках со свойствами.
 
+> stylelint: [`declaration-block-semicolon-space-before`](https://stylelint.io/user-guide/rules/declaration-block-semicolon-space-before#declaration-block-semicolon-space-before)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -1758,7 +1915,9 @@ a { color: pink; }
 a { color: pink; top: 0; }
 ```
 &nbsp;
-####5.5Не ставь пробелы после квадратной скобки и перед ней в селекторах атрибутов.
+####5. Не ставь пробелы после открывающей квадратной скобки и перед закрывающей квадратной скобкой в селекторах атрибутов.
+
+> stylelint: [`selector-attribute-brackets-space-inside`](https://stylelint.io/user-guide/rules/selector-attribute-brackets-space-inside#selector-attribute-brackets-space-inside)
 
 &nbsp;
 
@@ -1781,6 +1940,8 @@ a { color: pink; top: 0; }
 ```
 &nbsp;
 #### 6. Не ставь пробелы после и перед круглой скобкой в однострочных функциях.
+
+> stylelint: [`function-parentheses-space-inside`](https://stylelint.io/user-guide/rules/function-parentheses-space-inside#function-parentheses-space-inside)
 
 &nbsp;
 
@@ -1805,7 +1966,9 @@ a {
 }
 ```
 &nbsp;
-#### 7. Не ставь пробелы внутри круглых скобок в медиа запросах.
+#### 7. Не ставь пробелы внутри круглых скобок в медиа-запросах.
+
+> stylelint: [`media-feature-parentheses-space-inside`](https://stylelint.io/user-guide/rules/media-feature-parentheses-space-inside#media-feature-parentheses-space-inside)
 
 &nbsp;
 
@@ -1822,30 +1985,15 @@ a {
 @media (max-width: 300px) {}
 ```
 &nbsp;
-#### 8. Не ставь пробелы внутри круглых скобок в селекторах псевдоклассов.
+#### 8. Всегда ставь пробел после функции.
+
+> stylelint: [`function-whitespace-after`](https://stylelint.io/user-guide/rules/function-whitespace-after#function-whitespace-after)
 
 &nbsp;
 
 ❌ не надо так 👇
 ```css
 a { transform: translate(1, 1)scale(3); }
-```
-
-&nbsp;
-
-✅ надо так 👇
-```css
-input:not([type="submit"]) {}
-```
-&nbsp;
-#### 9. Всегда ставь пробел после функции.
-
-&nbsp;
-
-❌ не надо так 👇
-```css
-input:not( [type="submit"] ) {}
-input:not( [type="submit"]) {}
 ```
 
 &nbsp;
@@ -1867,7 +2015,29 @@ a { top: calc(1 * (1 + 3)); }
 a { padding: calc(1 * 2px), calc(2 * 5px); }
 ```
 &nbsp;
-#### 10. Ставь один пробел перед и после оператора диапазона в медиа запросах.
+#### 9. Не ставь пробелы внутри круглых скобок в селекторах псевдоклассов.
+
+> stylelint: [`selector-pseudo-class-parentheses-space-inside`](https://stylelint.io/user-guide/rules/selector-pseudo-class-parentheses-space-inside#selector-pseudo-class-parentheses-space-inside)
+
+&nbsp;
+
+❌ не надо так 👇
+```css
+input:not( [type="submit"] ) {}
+input:not( [type="submit"]) {}
+```
+
+&nbsp;
+
+✅ надо так 👇
+```css
+input:not([type="submit"]) {}
+```
+&nbsp;
+#### 10. Ставь один пробел перед и после оператора диапазона в медиа-запросах.
+
+> stylelint: [`media-feature-range-operator-space-after`](https://stylelint.io/user-guide/rules/media-feature-range-operator-space-after#media-feature-range-operator-space-after),
+>[`media-feature-range-operator-space-before`](https://stylelint.io/user-guide/rules/media-feature-range-operator-space-before#media-feature-range-operator-space-before)
 
 &nbsp;
 
@@ -1886,6 +2056,8 @@ a { padding: calc(1 * 2px), calc(2 * 5px); }
 ```
 &nbsp;
 #### 11. В блоках свойств, объявленных в одну строку, ставь пробел после точки с запятой.
+
+> stylelint: [`declaration-block-semicolon-space-after`](https://stylelint.io/user-guide/rules/declaration-block-semicolon-space-after#declaration-block-semicolon-space-after)
 
 &nbsp;
 
@@ -1906,9 +2078,10 @@ a {
 }
 ```
 &nbsp;
-#### 12. При использовании !important ставь один пробел перед восклицательным знаком.
+#### 12. При использовании !important ставь один пробел перед восклицательным знаком, но не ставь пробел после восклицательного знака.
 
-Но не ставь пробел после восклицательного знака
+> stylelint: [`declaration-bang-space-after`](https://stylelint.io/user-guide/rules/declaration-bang-space-after#declaration-bang-space-after),
+>[`declaration-bang-space-before`](https://stylelint.io/user-guide/rules/declaration-bang-space-before#declaration-bang-space-before)
 
 &nbsp;
 
@@ -1927,6 +2100,8 @@ a { color: pink !important; }
 &nbsp;
 #### 13. Не ставь пробел перед запятыми в функциях.
 
+> stylelint: [`function-comma-space-before`](https://stylelint.io/user-guide/rules/function-comma-space-before#function-comma-space-before)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -1943,7 +2118,9 @@ a { transform: translate(1,1) }
 a { transform: translate(1, 1) }
 ```
 &nbsp;
-#### 14. Не ставь пробел перед запятой в списке медиа запросов.
+#### 14. Не ставь пробел перед запятой в списке медиа-запросов.
+
+> stylelint: [`media-query-list-comma-space-before`](https://stylelint.io/user-guide/rules/media-query-list-comma-space-before#media-query-list-comma-space-before)
 
 &nbsp;
 
@@ -1965,6 +2142,8 @@ projection and (color) {}
 &nbsp;
 #### 15. Не ставь пробел перед запятой в списке селекторов.
 
+> stylelint: [`selector-list-comma-space-before`](https://stylelint.io/user-guide/rules/selector-list-comma-space-before#selector-list-comma-space-before)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -1982,6 +2161,8 @@ a, b { color: pink; }
 ```
 &nbsp;
 #### 16. Не ставь пробел перед запятой при перечислении значений свойства.
+
+> stylelint: [`value-list-comma-space-before`](https://stylelint.io/user-guide/rules/value-list-comma-space-before#value-list-comma-space-before)
 
 &nbsp;
 
@@ -2003,6 +2184,11 @@ a { background-size: 0,
 &nbsp;
 #### 17. Ставь пробел после комбинатора и перед ним.
 
+> stylelint: [`selector-combinator-space-after`](https://stylelint.io/user-guide/rules/selector-combinator-space-after#selector-combinator-space-after),
+>[`selector-combinator-space-before`](https://stylelint.io/user-guide/rules/selector-combinator-space-before#selector-combinator-space-before)
+
+&nbsp;
+
 Комбинаторы используются для объединения нескольких различных селекторов в новые и более конкретные. Существует несколько типов комбинаторов, в том числе: child ( >), смежный sibling ( +), общий sibling ( ~) и потомок (который представлен пробелом между двумя селекторами).
 
 &nbsp;
@@ -2023,6 +2209,8 @@ a > b { color: pink; }
 &nbsp;
 #### 18. Не ставь пробел перед двоеточием в свойствах.
 
+> stylelint: [`declaration-colon-space-before`](https://stylelint.io/user-guide/rules/declaration-colon-space-before#declaration-colon-space-before)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -2039,7 +2227,11 @@ a { color: pink }
 a { color:pink }
 ```
 &nbsp;
-#### 19. Не ставь пробел перед двоеточием в медиа запросах.
+#### 19. Не ставь пробел перед двоеточием в медиа-запросах.
+
+> stylelint: [`media-feature-colon-space-before`](https://stylelint.io/user-guide/rules/media-feature-colon-space-before#media-feature-colon-space-before)
+
+&nbsp;
 
 ❌ не надо так 👇
 ```css
@@ -2056,6 +2248,9 @@ a { color:pink }
 ```
 &nbsp;
 #### 20. Не ставь пробел после оператора и перед ним в селекторах атрибутов.
+
+> stylelint: [`selector-attribute-operator-space-after`](https://stylelint.io/user-guide/rules/selector-attribute-operator-space-after#selector-attribute-operator-space-after),
+>[`selector-attribute-operator-space-before`](https://stylelint.io/user-guide/rules/selector-attribute-operator-space-before#selector-attribute-operator-space-before)
 
 &nbsp;
 
@@ -2084,6 +2279,9 @@ a { color:pink }
 &nbsp;
 #### 21. В однострочных блоках свойств ставь один пробел после открывающей фигурной скобки и перед закрывающей фигурной скобкой.
 
+> stylelint: [`block-opening-brace-space-after`](https://stylelint.io/user-guide/rules/block-opening-brace-space-after#block-opening-brace-space-after),
+>[`block-closing-brace-space-before`](https://stylelint.io/user-guide/rules/block-closing-brace-space-before#block-closing-brace-space-before)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -2101,6 +2299,8 @@ color: pink;}
 ```
 &nbsp;
 #### 22. Ставь один пробел перед открывающей фигурной скобкой после селектора.
+
+> stylelint: [`block-opening-brace-space-before`](https://stylelint.io/user-guide/rules/block-opening-brace-space-before#block-opening-brace-space-before)
 
 &nbsp;
 
@@ -2122,6 +2322,8 @@ color: pink; }
 &nbsp;
 #### 23. В однострочных списках значений свойств ставь один пробел после запятой.
 
+> stylelint: [`value-list-comma-space-after`](https://stylelint.io/user-guide/rules/value-list-comma-space-after#value-list-comma-space-after)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -2142,7 +2344,9 @@ a { background-size: 0
       ,0; }
 ```
 &nbsp;
-#### 24. В однострочных медиа запросах должен быть пробел после запятой.
+#### 24. В однострочных медиа-запросах должен быть пробел после запятой.
+
+> stylelint: [`media-query-list-comma-space-after`](https://stylelint.io/user-guide/rules/media-query-list-comma-space-after#media-query-list-comma-space-after)
 
 &nbsp;
 
@@ -2165,6 +2369,8 @@ a { background-size: 0
 ```
 &nbsp;
 #### 25. Ставь один пробел в однострочных функциях после запятой.
+
+> stylelint: [`function-comma-space-after`](https://stylelint.io/user-guide/rules/function-comma-space-after#function-comma-space-after)
 
 &nbsp;
 
@@ -2190,6 +2396,8 @@ a {
 ```
 &nbsp;
 #### 25. Если у свойства задано несколько значений и свойства записаны в строку, всегда ставь пробел после двоеточия.
+
+> stylelint: [`declaration-colon-space-after`](https://stylelint.io/user-guide/rules/declaration-colon-space-after#declaration-colon-space-after)
 
 &nbsp;
 
@@ -2222,6 +2430,8 @@ a {
 &nbsp;
 #### 26. Всегда должен быть один пробел после имени правила в однострочных блоках.
 
+> stylelint: [`at-rule-name-space-after`](https://stylelint.io/user-guide/rules/at-rule-name-space-after#at-rule-name-space-after)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -2250,7 +2460,9 @@ a {
   (orientation: portrait) {}
 ```
 &nbsp;
-#### 27. В медиа запросах ставь пробел после двоеточия в свойстве-условии.
+#### 27. В медиа-запросах ставь пробел после двоеточия в свойстве-условии.
+
+> stylelint: [`media-feature-colon-space-after`](https://stylelint.io/user-guide/rules/media-feature-colon-space-after#media-feature-colon-space-after)
 
 &nbsp;
 
@@ -2277,7 +2489,10 @@ a {
 &nbsp;
 #### 1. Не дублируй селекторы.
 
+> stylelint: [`no-duplicate-selectors`](https://stylelint.io/user-guide/rules/no-duplicate-selectors#no-duplicate-selectors)
+
 &nbsp;
+
 Один и тот же селектор может повторяться при следующих обстоятельствах:
 
 * используется в разных списках селекторов:
@@ -2345,7 +2560,12 @@ a {
 &nbsp;
 #### 2. Не дублируй свойства в блоках;
 
+> stylelint: [`declaration-block-no-duplicate-properties`](https://stylelint.io/user-guide/rules/declaration-block-no-duplicate-properties#declaration-block-no-duplicate-properties)
+
+&nbsp;
+
 - никогда не повторяй свойства.
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -2403,6 +2623,8 @@ p {
 &nbsp;
 #### 3. В таблице стилей не дублируй правила через @import.
 
+> stylelint: [`no-duplicate-at-import-rules`](https://stylelint.io/user-guide/rules/no-duplicate-at-import-rules#no-duplicate-at-import-rules)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -2434,6 +2656,8 @@ p {
 &nbsp;
 #### 4. Не дублируй имена шрифтов.
 
+> stylelint: [`font-family-no-duplicate-names`](https://stylelint.io/user-guide/rules/font-family-no-duplicate-names#font-family-no-duplicate-names)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -2461,6 +2685,8 @@ a { font: normal 14px/32px -apple-system, BlinkMacSystemFont, sans-serif; }
 &nbsp;
 #### 1. Используй известные правила.
 
+> stylelint: [`at-rule-no-unknown`](https://stylelint.io/user-guide/rules/at-rule-no-unknown#at-rule-no-unknown)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -2483,7 +2709,9 @@ a { font: normal 14px/32px -apple-system, BlinkMacSystemFont, sans-serif; }
 }
 ```
 &nbsp;
-#### 2. Используй известные имена для медиа запросов.
+#### 2. Используй известные имена для медиа-запросов.
+
+> stylelint: [`media-feature-name-no-unknown`](https://stylelint.io/user-guide/rules/media-feature-name-no-unknown#media-feature-name-no-unknown)
 
 &nbsp;
 
@@ -2506,6 +2734,13 @@ a { font: normal 14px/32px -apple-system, BlinkMacSystemFont, sans-serif; }
 ```
 &nbsp;
 #### 3. Используй только известные свойства, селекторы псевдоклассов и псевдоэлементов, типы селекторов.
+
+> stylelint: [`property-no-unknown`](https://stylelint.io/user-guide/rules/property-no-unknown#property-no-unknown),
+>[`selector-pseudo-class-no-unknown`](https://stylelint.io/user-guide/rules/selector-pseudo-class-no-unknown#selector-pseudo-class-no-unknown),
+>[`selector-pseudo-element-no-unknown`](https://stylelint.io/user-guide/rules/selector-pseudo-element-no-unknown#selector-pseudo-element-no-unknown),
+>[`selector-type-no-unknown`](https://stylelint.io/user-guide/rules/selector-type-no-unknown#selector-type-no-unknown)
+
+&nbsp;
 
 Свойства, селекторы псевдоклассов и псевдоэлементов, определенные в Спецификациях CSS, и свойства, специфичные для браузера, считаются известными.
 
@@ -2542,6 +2777,8 @@ ul li {}
 &nbsp;
 #### 4. Используй только известные единицы измерения, определенные в Спецификациях CSS.
 
+> stylelint: [`unit-no-unknown`](https://stylelint.io/user-guide/rules/unit-no-unknown#unit-no-unknown)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -2574,6 +2811,10 @@ a {
 &nbsp;
 #### 5. При использовании цветов в шестнадцатеричной форме не используй недопустимые значение.
 
+> stylelint: [`color-no-invalid-hex`](https://stylelint.io/user-guide/rules/color-no-invalid-hex#color-no-invalid-hex)
+
+&nbsp;
+
 Длинные шестнадцатеричные цвета могут состоять из 6 или 8 (с альфа-каналом) шестнадцатеричных символов. И их сокращенные варианты - 3 и 4 символа соответственно.
 
 &nbsp;
@@ -2596,6 +2837,10 @@ a { color: #123450aa; }
 ```
 &nbsp;
 #### 6. При использовании linear-gradient() правильно пиши первый аргумент - позиция, от которой будет начинаться градиент.
+
+> stylelint: [`function-linear-gradient-no-nonstandard-direction`](https://stylelint.io/user-guide/rules/function-linear-gradient-no-nonstandard-direction#function-linear-gradient-no-nonstandard-direction)
+
+&nbsp;
 
 Для позиции используются следующие значения:
 
@@ -2641,6 +2886,8 @@ a { color: #123450aa; }
 &nbsp;
 #### 1. Не оставляй пустые комментарии.
 
+> stylelint: [`comment-no-empty`](https://stylelint.io/user-guide/rules/comment-no-empty#comment-no-empty)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -2664,6 +2911,10 @@ a { color: #123450aa; }
 
 &nbsp;
 #### 2. Не используй двойной слеш //...  для комментирования.
+
+> stylelint: [`no-invalid-double-slash-comments`](https://stylelint.io/user-guide/rules/no-invalid-double-slash-comments#no-invalid-double-slash-comments)
+
+&nbsp;
 
 CSS не поддерживает комментарии двойным слешем (исключение: некоторые препроцессоры)
 
@@ -2694,6 +2945,8 @@ a {
 &nbsp;
 #### 3. Ставь пробелы внутри маркеров комментария.
 
+> stylelint: [`comment-whitespace-inside`](https://stylelint.io/user-guide/rules/comment-whitespace-inside#comment-whitespace-inside)
+
 &nbsp;
 
 ❌ не надо так 👇
@@ -2722,6 +2975,68 @@ a {
 ```
 
 **[⬆ Вернуться к содержанию](#содержание)**
+
+&nbsp;
+
+## !important в @keyframes.
+
+&nbsp;
+#### Не используй !important в объявлениях в ключевых кадрах.
+
+> stylelint: [`keyframe-declaration-no-important`](https://stylelint.io/user-guide/rules/keyframe-declaration-no-important)
+
+&nbsp;
+
+Использование !important в объявлениях ключевых кадров полностью игнорируется в некоторых браузерах.
+
+&nbsp;
+
+❌ не надо так 👇
+```css
+@keyframes important1 {
+  from {
+    margin-top: 50px;
+  }
+  to {
+    margin-top: 100px !important;
+  }
+}
+@keyframes important1 {
+  from {
+    margin-top: 50px;
+  }
+  to {
+    margin-top: 100px!important;
+  }
+}
+@keyframes important1 {
+  from {
+    margin-top: 50px;
+  }
+  to {
+    margin-top: 100px ! important;
+  }
+}
+```
+
+&nbsp;
+
+✅ надо так 👇
+```css
+a { color: pink !important; }
+@keyframes important1 {
+  from {
+    margin-top: 50px;
+  }
+  to {
+    margin-top: 100px;
+  }
+}
+```
+
+**[⬆ Вернуться к содержанию](#содержание)**
+
+&nbsp;
 
 &nbsp;
 
