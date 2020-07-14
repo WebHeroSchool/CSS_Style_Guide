@@ -34,7 +34,7 @@
 
 &nbsp;
 
-❌  не надо так 👇
+❌ не надо так 👇
 ```css
 @media print {
 a {
@@ -541,11 +541,23 @@ a {
 
 ✅ надо так 👇
 ```css
-a { padding: 10px; padding-left: 20px; }
+a {
+  padding: 10px;
+  padding-left: 20px;
+}
  
-a { transition-property: opacity; } a { transition: opacity 1s linear; }
+a {
+  transition-property: opacity;
+}
+
+a {
+  transition: opacity 1s linear;
+}
  
-a { transition-property: opacity; -webkit-transition: opacity 1s linear; }
+a {
+  transition-property: opacity;
+  -webkit-transition: opacity 1s linear;
+}
 ```
 
 **[⬆ Вернуться к содержанию](#содержание)**
